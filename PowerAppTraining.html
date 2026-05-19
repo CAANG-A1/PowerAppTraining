@@ -1,1 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Apps Training Live Demo</title>
+  <meta name="description" content="Beginner-friendly Power Apps training site with live-demo cues, analogies, checkpoints, and blank canvas guidance." />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
+      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2:#fbfbf9; --color-surface-offset:#efede7;
+      --color-border:#d4d1ca; --color-divider:#dcd9d5; --color-text:#28251d; --color-text-muted:#67655f; --color-text-faint:#9e9c96;
+      --color-primary:#01696f; --color-primary-hover:#0c4e54; --color-primary-highlight:#d9e8e5; --color-secondary:#006494; --color-gold:#d19900; --color-warning:#964219;
+      --color-success:#437a22; --color-success-highlight:#d8e4d1; --color-warning-highlight:#ead7cb; --color-text-inverse:#f9f8f4;
+      --radius-sm:0.375rem; --radius-md:0.75rem; --radius-lg:1rem; --radius-xl:1.5rem; --radius-full:9999px;
+      --shadow-sm:0 1px 2px rgb(40 37 29 / 0.06); --shadow-md:0 10px 30px rgb(40 37 29 / 0.08); --shadow-lg:0 20px 50px rgb(40 37 29 / 0.12);
+      --content: 1180px;
+      --font-body:'General Sans', Inter, sans-serif;
+      --font-display:'Cabinet Grotesk', 'General Sans', sans-serif;
+      --transition:180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-theme="dark"] {
+      --color-bg:#171614; --color-surface:#1c1b19; --color-surface-2:#201f1d; --color-surface-offset:#242321;
+      --color-border:#393836; --color-divider:#2a2927; --color-text:#e2dfd8; --color-text-muted:#b1aea7; --color-text-faint:#7c7973;
+      --color-primary:#4f98a3; --color-primary-hover:#67acb6; --color-primary-highlight:#243336; --color-secondary:#6ba7d8; --color-gold:#efc15b; --color-warning:#d59a73;
+      --color-success:#8cc26d; --color-success-highlight:#263224; --color-warning-highlight:#392c26; --color-text-inverse:#171614;
+      --shadow-sm:0 1px 2px rgb(0 0 0 / 0.25); --shadow-md:0 10px 30px rgb(0 0 0 / 0.3); --shadow-lg:0 20px 50px rgb(0 0 0 / 0.45);
+    }
+    *,:before,:after{box-sizing:border-box} html{scroll-behavior:smooth} body,h1,h2,h3,h4,p,ul,ol{margin:0}
+    body{font-family:var(--font-body);font-size:var(--text-base);line-height:1.6;background:var(--color-bg);color:var(--color-text)}
+    img,svg{display:block;max-width:100%;height:auto} a{color:inherit;text-decoration:none} button{font:inherit;border:0;background:none;color:inherit;cursor:pointer} ul,ol{padding:0}
+    :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+    .skip-link{position:absolute;left:-999px;top:var(--space-3);background:var(--color-primary);color:var(--color-text-inverse);padding:var(--space-3) var(--space-4);z-index:1000}.skip-link:focus{left:var(--space-3)}
+    .container{width:min(calc(100% - 2rem),var(--content));margin-inline:auto}
+    .site-header{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--color-bg) 85%, transparent);backdrop-filter:blur(14px);border-bottom:1px solid color-mix(in srgb, var(--color-text) 12%, transparent)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) 0}.brand{display:flex;align-items:center;gap:var(--space-3);font-weight:700}.brand-mark{width:2.5rem;height:2.5rem;padding:0.45rem;border-radius:0.8rem;background:linear-gradient(135deg,var(--color-primary-highlight),var(--color-surface-2));color:var(--color-primary);box-shadow:var(--shadow-sm)}
+    .nav-links{display:flex;gap:var(--space-4);flex-wrap:wrap;font-size:var(--text-sm);color:var(--color-text-muted)} .nav-actions{display:flex;align-items:center;gap:var(--space-2)}
+    .theme-toggle,.menu-toggle{min-width:44px;min-height:44px;display:grid;place-items:center;border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);border-radius:var(--radius-full);background:var(--color-surface)} .menu-toggle{display:none}
+    .hero{padding:clamp(var(--space-12),8vw,var(--space-20)) 0 var(--space-12)} .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:var(--space-8);align-items:end}
+    .eyebrow{display:inline-flex;gap:var(--space-2);align-items:center;padding:0.4rem 0.75rem;border-radius:var(--radius-full);background:var(--color-primary-highlight);color:var(--color-primary);font-size:var(--text-xs);font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+    h1,h2,h3{font-family:var(--font-display);line-height:1.05;letter-spacing:-0.03em} h1{font-size:var(--text-2xl);max-width:12ch;margin-top:var(--space-5)} h2{font-size:var(--text-xl)} h3{font-size:var(--text-lg)}
+    .hero p{margin-top:var(--space-5);max-width:64ch;color:var(--color-text-muted)} .hero-actions{display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-6)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0.85rem 1.1rem;border-radius:var(--radius-full);font-size:var(--text-sm);font-weight:600;transition:all var(--transition)} .btn-primary{background:var(--color-primary);color:var(--color-text-inverse)} .btn-primary:hover{background:var(--color-primary-hover)} .btn-secondary{background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 12%, transparent)}
+    .hero-card,.panel,.card,.formula-card,.step-card,.takeaway,.focus-card,.comparison-card,.checkpoint,.analogy,.demo-tip,.warning-card{background:var(--color-surface);border:1px solid color-mix(in srgb, var(--color-text) 10%, transparent);box-shadow:var(--shadow-sm)}
+    .hero-card,.panel{padding:var(--space-6);border-radius:var(--radius-xl)} .hero-card{display:grid;gap:var(--space-4)} .mini-stat{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-offset)} .mini-stat strong{display:block;font-size:var(--text-xl);font-family:var(--font-display)} .mini-stat span{color:var(--color-text-muted);font-size:var(--text-sm)}
+    .section{padding:var(--space-12) 0}.section.alt{background:linear-gradient(180deg,transparent, color-mix(in srgb,var(--color-primary-highlight) 28%, transparent))}
+    .section-head{display:flex;justify-content:space-between;gap:var(--space-4);align-items:end;margin-bottom:var(--space-6)} .section-head p{max-width:56ch;color:var(--color-text-muted)}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5)} .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)} .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+    .agenda{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3)} .agenda .card,.focus-card,.comparison-card,.step-card,.formula-card,.takeaway,.checkpoint,.analogy,.demo-tip,.warning-card{padding:var(--space-5);border-radius:var(--radius-lg)} .agenda time{display:block;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.05em;color:var(--color-primary);font-weight:700;margin-bottom:var(--space-2)}
+    .tag,.label{display:inline-flex;padding:0.35rem 0.6rem;border-radius:var(--radius-full);background:var(--color-primary-highlight);color:var(--color-primary);font-size:var(--text-xs);font-weight:700;margin-bottom:var(--space-3)}
+    .tag.success{background:var(--color-success-highlight);color:var(--color-success)} .tag.warning{background:var(--color-warning-highlight);color:var(--color-warning)}
+    .step-card ol,.panel ul,.panel ol,.warning-card ul{padding-left:1.1rem;list-style:disc}.step-card li,.panel li,.warning-card li{margin:0.35rem 0;color:var(--color-text-muted)}
+    table{width:100%;border-collapse:collapse;font-size:var(--text-sm)} th,td{text-align:left;padding:0.9rem 0.85rem;border-bottom:1px solid var(--color-divider);vertical-align:top} th{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-muted)}
+    .areas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)} .area{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-offset)} .area strong{display:block;margin-bottom:0.3rem}
+    .formula-card code{display:block;margin-top:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:#111827;color:#f3f4f6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.9em;overflow:auto}
+    .pill-list{display:flex;flex-wrap:wrap;gap:var(--space-2)} .pill{padding:0.45rem 0.75rem;border-radius:var(--radius-full);background:var(--color-surface-offset);font-size:var(--text-sm);color:var(--color-text-muted)}
+    .takeaway-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-4)} .takeaway{display:grid;gap:var(--space-2)} .takeaway strong{color:var(--color-primary)}
+    .footer{padding:var(--space-10) 0 var(--space-12);color:var(--color-text-muted)} .footer-inner{display:flex;justify-content:space-between;gap:var(--space-4);padding-top:var(--space-6);border-top:1px solid var(--color-divider)}
+    @media (max-width: 980px){.hero-grid,.grid-2,.grid-3,.grid-4,.areas-grid,.takeaway-wrap,.agenda{grid-template-columns:1fr 1fr}.takeaway-wrap{grid-template-columns:repeat(2,1fr)}.hero-card{order:-1}}
+    @media (max-width: 760px){.menu-toggle{display:grid}.nav-links{display:none;position:absolute;left:1rem;right:1rem;top:calc(100% + .5rem);padding:var(--space-4);background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-text) 10%, transparent);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);flex-direction:column}.nav-links.open{display:flex}.hero-grid,.agenda,.grid-2,.grid-3,.grid-4,.areas-grid,.takeaway-wrap{grid-template-columns:1fr}.section-head,.footer-inner{flex-direction:column;align-items:flex-start}}
+    @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Power Apps Training home">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M10 12.5 24 5l14 7.5v22L24 43 10 34.5v-22Z" stroke="currentColor" stroke-width="2.8"/>
+          <path d="M18 18.5 30 24 18 29.5V18.5Z" fill="currentColor" opacity="0.92"/>
+        </svg>
+        <div>
+          <div>Power Apps Training</div>
+          <div style="font-size:var(--text-xs); color:var(--color-text-muted); font-weight:500;">Live-demo edition</div>
+        </div>
+      </a>
+      <nav>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#focus">Focus</a>
+          <a href="#agenda">Agenda</a>
+          <a href="#build">Build</a>
+          <a href="#analogy">Analogies</a>
+          <a href="#formulas">Formulas</a>
+        </div>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
 
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Live build for beginners</span>
+          <h1>Teach it while you build it live.</h1>
+          <p>This version adds trainer-friendly analogies, success checkpoints, and talk-track cues so learners can follow your live SharePoint list build, generated app walkthrough, and blank canvas demo without getting lost.</p>
+          <p style="margin-top:var(--space-3); font-size:var(--text-sm); color:var(--color-primary); font-weight:600;">Created by the CA ANG/A1 Innovation Team.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#build">Start the live demo</a>
+            <a class="btn btn-secondary" href="#analogy">See the analogies</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Training overview">
+          <div class="mini-stat"><strong>Live build</strong><span>You create the list and app in real time while learners use the site as a guide.</span></div>
+          <div class="mini-stat"><strong>Checkpoints</strong><span>Each stage now tells learners what they should see before moving on.</span></div>
+          <div class="mini-stat"><strong>Plain language</strong><span>Complex ideas are framed with simple comparisons and teaching prompts.</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" id="focus">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Training focus</h2>
+            <p>The lesson still covers the SharePoint list, auto-generated app, blank canvas app, and core formulas, but it now also supports live instruction with clearer explanations for beginners.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="focus-card"><span class="tag">Data source</span><h3>Create the SharePoint list</h3><p>Build the list live so learners can see where app data starts and why structure matters first.</p></article>
+          <article class="focus-card"><span class="tag">Quick start</span><h3>Generate an app automatically</h3><p>Show the fastest path to a working app, then explain why that speed comes with limits.</p></article>
+          <article class="focus-card"><span class="tag">Customization</span><h3>Build a blank canvas app</h3><p>Use the live demo to show how layout, screens, forms, and galleries become easier to control.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agenda">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Training agenda</h2>
+            <p>The timeline still fits a 30-minute session, but the trainer notes now help you explain what is happening while you click through each stage live.</p>
+          </div>
+        </div>
+        <div class="agenda">
+          <article class="card"><time>0:00–0:05</time><h3>Overview</h3><p>Introduce Power Apps, SharePoint, workflow concepts, and the two app approaches.</p></article>
+          <article class="card"><time>0:05–0:10</time><h3>Create list</h3><p>Build the list live and explain why the data source comes first.</p></article>
+          <article class="card"><time>0:10–0:15</time><h3>Generate app</h3><p>Create the first app automatically from SharePoint.</p></article>
+          <article class="card"><time>0:15–0:25</time><h3>Blank canvas build</h3><p>Build the more flexible version and explain the layout as you go.</p></article>
+          <article class="card"><time>0:25–0:30</time><h3>Test and recap</h3><p>Preview, test, recap, and answer questions.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="build">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Build sequence</h2>
+            <p>Each stage now includes a checkpoint and a short teaching note so learners know what success looks like while you build.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="step-card">
+            <span class="tag">Step 1</span>
+            <h3>Create the SharePoint list</h3>
+            <ol>
+              <li>Navigate to the Teams or SharePoint site.</li>
+              <li>Select New &gt; List.</li>
+              <li>Create a blank list named <strong>Power App Actions</strong>.</li>
+              <li>Add workflow-related columns.</li>
+              <li>Create a sample test record.</li>
+            </ol>
+            <div class="checkpoint" style="margin-top:var(--space-4);">
+              <span class="tag success">Checkpoint</span>
+              <p>You should now see a list with five columns and at least one test record.</p>
+            </div>
+            <div class="demo-tip" style="margin-top:var(--space-4);">
+              <span class="tag">Say this live</span>
+              <p>“The list is the filing cabinet. Power Apps is the front desk people use instead of opening the drawers themselves.”</p>
+            </div>
+          </article>
+          <article class="step-card">
+            <span class="tag">Step 2</span>
+            <h3>Generate an app</h3>
+            <ol>
+              <li>Open the SharePoint list.</li>
+              <li>Select Integrate &gt; Power Apps &gt; Create an app.</li>
+              <li>Allow Power Apps to generate the app.</li>
+              <li>Preview the generated app.</li>
+              <li>Create and edit a sample record.</li>
+            </ol>
+            <div class="checkpoint" style="margin-top:var(--space-4);">
+              <span class="tag success">Checkpoint</span>
+              <p>You should see a working app connected to the list, with records you can browse and edit.</p>
+            </div>
+            <div class="demo-tip" style="margin-top:var(--space-4);">
+              <span class="tag">Say this live</span>
+              <p>“This is the fastest path to something functional, but not always the best path to something polished.”</p>
+            </div>
+          </article>
+          <article class="step-card">
+            <span class="tag">Step 3</span>
+            <h3>Build a blank canvas app</h3>
+            <ol>
+              <li>Open Power Apps.</li>
+              <li>Select Create.</li>
+              <li>Select Blank Canvas App.</li>
+              <li>Choose Tablet layout.</li>
+              <li>Connect the app to the SharePoint list.</li>
+              <li>Build the layout with containers, galleries, and forms.</li>
+            </ol>
+            <div class="checkpoint" style="margin-top:var(--space-4);">
+              <span class="tag success">Checkpoint</span>
+              <p>You should see a header area, a gallery showing records, and a form tied to the selected item.</p>
+            </div>
+            <div class="demo-tip" style="margin-top:var(--space-4);">
+              <span class="tag">Say this live</span>
+              <p>“Now we are not accepting the default layout. We are deciding what users should see first and what actions matter most.”</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="analogy">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Helpful analogies</h2>
+            <p>These short comparisons make abstract concepts easier to explain while you are building live.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="analogy">
+            <span class="tag">SharePoint + Power Apps</span>
+            <h3>Back office and front desk</h3>
+            <p>SharePoint is the back office where the records are stored. Power Apps is the front desk where people view, enter, and update information.</p>
+          </article>
+          <article class="analogy">
+            <span class="tag">Gallery + form</span>
+            <h3>File list and open file</h3>
+            <p>The gallery is like a list of file names in a folder. The form is the file you open to read or edit after you click one item from the list.</p>
+          </article>
+          <article class="analogy">
+            <span class="tag">Auto-generated app</span>
+            <h3>Starter apartment</h3>
+            <p>An auto-generated app is move-in ready fast, but you did not design the floor plan. It works, but customization is limited.</p>
+          </article>
+          <article class="analogy">
+            <span class="tag">Blank canvas app</span>
+            <h3>Custom floor plan</h3>
+            <p>A blank canvas app takes more setup, but you decide where the rooms go, what users see first, and how the experience should flow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container grid-2">
+        <article class="panel">
+          <h2>Recommended columns</h2>
+          <table>
+            <thead><tr><th>Column</th><th>Type</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Title</td><td>Single line of text</td><td>Action item title</td></tr>
+              <tr><td>Action Type</td><td>Choice</td><td>Workflow category</td></tr>
+              <tr><td>Unit</td><td>Choice</td><td>Submitting organization</td></tr>
+              <tr><td>Name</td><td>Single line of text</td><td>Submitting user</td></tr>
+              <tr><td>Notes</td><td>Multiple lines of text</td><td>Additional details</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="panel">
+          <h2>Why blank canvas matters</h2>
+          <ul>
+            <li>Create custom layouts.</li>
+            <li>Add multiple screens.</li>
+            <li>Control where forms and galleries appear.</li>
+            <li>Create dashboard-style home screens.</li>
+            <li>Add custom navigation and actions.</li>
+            <li>Create a cleaner user experience.</li>
+          </ul>
+          <div class="demo-tip" style="margin-top:var(--space-4);">
+            <span class="tag">Example to explain</span>
+            <p>“In an auto-generated app, every field tends to follow the default structure. In a blank canvas app, we can put important fields first, move optional details lower, and guide the user more intentionally.”</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Dashboard layout</h2>
+            <p>The blank canvas app uses a simple dashboard structure so learners can see where navigation, records, and editing each belong.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card"><span class="tag">Header</span><h3>Container + Label</h3><p>Displays the app title and navigation.</p></article>
+          <article class="card"><span class="tag">Left panel</span><h3>Vertical Gallery</h3><p>Displays SharePoint records.</p></article>
+          <article class="card"><span class="tag">Right panel</span><h3>Edit Form + Icons</h3><p>Displays and edits the selected record.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container grid-2">
+        <article class="panel">
+          <h2>Power Apps Studio areas</h2>
+          <div class="areas-grid" style="margin-top: var(--space-4);">
+            <div class="area"><strong>Tree View</strong><p>Select, organize, rename, and reorder controls and screens.</p></div>
+            <div class="area"><strong>Insert Menu</strong><p>Add labels, galleries, forms, buttons, icons, and containers.</p></div>
+            <div class="area"><strong>Data</strong><p>Connect the app to SharePoint or other data sources.</p></div>
+            <div class="area"><strong>Formula Bar</strong><p>Write Power Fx formulas that control app behavior.</p></div>
+            <div class="area"><strong>Properties Pane</strong><p>Modify colors, sizing, fonts, layout, and behavior.</p></div>
+            <div class="area"><strong>Preview Button</strong><p>Run the app so you can test before publishing.</p></div>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Galleries and forms</h2>
+          <ul>
+            <li>A gallery displays multiple records from SharePoint.</li>
+            <li>Each row in the gallery represents one SharePoint item.</li>
+            <li>Selecting a gallery item changes the form record.</li>
+            <li>A form allows users to create or edit records.</li>
+          </ul>
+          <div class="pill-list" style="margin-top: var(--space-4);">
+            <span class="pill">Controls are the building blocks.</span>
+            <span class="pill">Power Fx defines behavior.</span>
+            <span class="pill">ThisItem refers to the current gallery record.</span>
+            <span class="pill">Variables store reusable information.</span>
+            <span class="pill">Containers organize layouts and dashboards.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="formulas">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Basic formulas</h2>
+            <p>These formulas work well as live-demo anchors because each one maps to a simple action learners can watch happen on screen.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="formula-card"><div class="label">Edit selected item</div><h3>Edit a record</h3><code>EditForm(Form1)</code></article>
+          <article class="formula-card"><div class="label">Save changes</div><h3>Submit the form</h3><code>SubmitForm(Form1)</code></article>
+          <article class="formula-card"><div class="label">Delete selected item</div><h3>Remove a record</h3><code>Remove(PowerAppActions, galActionItems.Selected)</code></article>
+          <article class="formula-card"><div class="label">Current user</div><h3>Get email</h3><code>User().Email</code></article>
+          <article class="formula-card"><div class="label">Format date</div><h3>Show created date</h3><code>Text(ThisItem.Created, "dd-mm-yy")</code></article>
+          <article class="formula-card"><div class="label">Teaching cue</div><h3>Explain what formulas do</h3><p style="margin-top:var(--space-3); color:var(--color-text-muted);">You can tell learners that formulas are the instructions that connect what users click to what the app does next.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What not to do</h2>
+            <p>Calling out common beginner mistakes during the live build can prevent confusion before it starts.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="warning-card">
+            <span class="tag warning">Avoid this</span>
+            <h3>Skipping the test record</h3>
+            <ul>
+              <li>Without sample data, the gallery is harder to explain live.</li>
+              <li>It is easier for learners to understand the app when a real row already exists.</li>
+            </ul>
+          </article>
+          <article class="warning-card">
+            <span class="tag warning">Avoid this</span>
+            <h3>Overbuilding the first list</h3>
+            <ul>
+              <li>Do not start with too many columns.</li>
+              <li>Keeping the list simple helps learners focus on the pattern instead of the clutter.</li>
+            </ul>
+          </article>
+          <article class="warning-card">
+            <span class="tag warning">Avoid this</span>
+            <h3>Customizing the generated app too much</h3>
+            <ul>
+              <li>Use the auto-generated app to prove the concept quickly.</li>
+              <li>Use the blank canvas app to teach intentional design and layout.</li>
+            </ul>
+          </article>
+          <article class="warning-card">
+            <span class="tag warning">Avoid this</span>
+            <h3>Publishing before previewing</h3>
+            <ul>
+              <li>Always test in preview mode first.</li>
+              <li>Showing a quick test live reinforces good habits for beginners.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Recap prompts</h2>
+            <p>These questions can help you check understanding at the end of the session without adding much extra time.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="takeaway"><strong>Can they explain the difference?</strong><p>Ask learners to describe how a gallery is different from a form.</p></article>
+          <article class="takeaway"><strong>Can they identify the tradeoff?</strong><p>Ask when they would choose auto-generated versus blank canvas.</p></article>
+          <article class="takeaway"><strong>Can they connect data to UI?</strong><p>Ask what role SharePoint plays compared with Power Apps.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>Built as a live-demo training site for the revised blank canvas student guide by the CA ANG/A1 Innovation Team.</p>
+      <p><a href="#top">Back to top</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      const renderIcon = () => {
+        toggle.innerHTML = theme === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      };
+      renderIcon();
+      toggle.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); renderIcon(); });
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('#nav-links');
+      menuToggle?.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+      navLinks?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+  </script>
+</body>
+</html>
